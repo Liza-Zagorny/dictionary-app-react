@@ -16,7 +16,7 @@ function App() {
           by Liza Neiman
         </p>
       </header>
-      <h2>What word do you want to look up?</h2>
+      <h2 className="Title">What word do you want to look up?</h2>
       <Dictionary />
     </div>
   );
