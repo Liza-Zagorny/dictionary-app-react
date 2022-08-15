@@ -2,3 +2,16 @@
    display: block;
    margin: 0 auto;
 }
+
+form {
+   display: flex;
+   justify-content: center
+}
+
+.form-control {
+   width: 250px
+}
+
+button {
+   margin-left: 7px
+}
