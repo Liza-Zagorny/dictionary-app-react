@@ -31,6 +31,7 @@ function Dictionary() {
           className="form-control"
           autoFocus
           autoComplete="off"
+          placeholder="Search for a word"
           onChange={handleChange}
         />
         <button type="submit" className="btn btn-primary btn-sm">
