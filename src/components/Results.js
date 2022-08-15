@@ -1,11 +1,17 @@
 import React from "react";
 import "../css/Results.css";
+import Meaning from "./Meaning";
 
 function Results(props) {
   if (props.data) {
     return (
       <div className="Results">
-        <p>Meaning: {props.data[0].meanings[0].definitions[0].definition}</p>
+        <h2>{props.data.word}</h2>
+        <div>
+          {props.data.meanings.map((meaning, index) => {
+            return <Meaning data={meaning} key={index} />;
+          })}
+        </div>
       </div>
     );
   } else return null;

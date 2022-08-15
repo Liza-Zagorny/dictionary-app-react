@@ -13,7 +13,8 @@ function Dictionary() {
 
   function handleResponse(response) {
     console.log(response.data);
-    setData(response.data);
+    // Some words have multiple meanings (like "sun") so we'll show the only first one, which is the most common.
+    setData(response.data[0]);
   }
 
   function search(event) {
