@@ -5,7 +5,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          <a href="/" target="_blank">
+          <a
+            href="https://github.com/Liza-Zagorny/dictionary-app-react"
+            target="_blank"
+            rel="noreferrer"
+          >
             Open-source code
           </a>{" "}
           by Liza Neiman
