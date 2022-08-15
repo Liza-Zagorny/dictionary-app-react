@@ -1,4 +1,5 @@
 import "./App.css";
+import Dictionary from "./components/Dictionary";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           by Liza Neiman
         </p>
       </header>
+      <Dictionary />
     </div>
   );
 }
