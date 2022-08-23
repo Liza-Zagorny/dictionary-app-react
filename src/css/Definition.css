@@ -1,0 +1,25 @@
+.Definition {
+margin-bottom: 16px
+}
+
+.definition {
+    margin: 0 auto 
+}
+.example {
+    font-style: italic;
+    font-size: small;
+    opacity: 70%;
+    margin: 0 auto
+}
+
+.synonyms {
+    margin: 0 auto
+}
+
+.synonyms li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 15px;
+   
+    
+}
