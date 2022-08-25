@@ -1,0 +1,12 @@
+.Phonetic {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+    margin: 10px 0
+}
+
+.listen-btn{
+    border-radius: 50%;
+    margin: 0 
+}
