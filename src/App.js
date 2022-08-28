@@ -17,7 +17,7 @@ function App() {
         </p>
       </header>
       <h2 className="Title">What word do you want to look up?</h2>
-      <Dictionary />
+      <Dictionary defaultWord="hello" />
     </div>
   );
 }
