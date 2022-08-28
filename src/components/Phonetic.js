@@ -4,9 +4,15 @@ import "../css/Phonetic.css";
 function Phonetic(props) {
   function handleListen(event) {
     event.preventDefault();
-    window.open(props.data.audio);
+    const audio = new Audio(props.data.audio);
+    audio.play();
   }
-  if (props.data.audio && props.data.text && props.data.audio !== "")
+  if (
+    props.data &&
+    props.data.audio &&
+    props.data.text &&
+    props.data.audio !== ""
+  )
     return (
       <span className="Phonetic">
         <button
@@ -18,8 +24,12 @@ function Phonetic(props) {
         {props.data.text}
       </span>
     );
-  else if (props.data.text && (props.data.audio === "" || !props.data.audio)) {
+  else if (
+    props.data &&
+    props.data.text &&
+    (props.data.audio === "" || !props.data.audio)
+  ) {
     return <span className="Phonetic">{props.data.text}</span>;
-  }
+  } else return null;
 }
 export default Phonetic;

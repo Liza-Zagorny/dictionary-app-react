@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../css/Results.css";
 import Meaning from "./Meaning";
 import Phonetic from "./Phonetic";
 
 function Results(props) {
+  const [phoneticData, setPhoneticData] = useState(undefined);
+  useEffect(() => {
+    if (props.data) {
+      const withAudio = props.data.phonetics.find(
+        (phonetic) => phonetic.audio && phonetic.text && phonetic.audio !== ""
+      );
+      const withTextOnly = props.data.phonetics.find(
+        (phonetic) =>
+          phonetic.text && (phonetic.audio === "" || !phonetic.audio)
+      );
+      setPhoneticData(withAudio ?? withTextOnly);
+    }
+  }, [props.data, phoneticData]);
+
   if (props.data) {
     return (
       <div className="Results">
         <h2>{props.data.word}</h2>
         <div>
-          {props.data.phonetics.map((phonetic, index) => {
-            return <Phonetic data={phonetic} key={index} />;
-          })}
+          <Phonetic data={phoneticData} />
         </div>
         <div>
           {props.data.meanings.map((meaning, index) => {
