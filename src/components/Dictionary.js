@@ -2,29 +2,49 @@ import React, { useState } from "react";
 import "../css/Dictionary.css";
 import axios from "axios";
 import Results from "./Results";
+import Photos from "./Photos";
 
 function Dictionary(props) {
   const [word, setWord] = useState(props.defaultWord);
-  const [data, setData] = useState(null);
+  const [dictionaryData, setDictionaryData] = useState(null);
+  const [photosData, setPhotosData] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   function handleChange(event) {
     setWord(event.target.value);
   }
 
-  function handleResponse(response) {
-    console.log(response.data);
+  function handleDictionaryResponse(response) {
+    //console.log(response.data);
     // Some words have multiple meanings (like "sun") so we'll show the only first one, which is the most common.
-    setData(response.data[0]);
+    setDictionaryData(response.data[0]);
+  }
+
+  function handlePexelsResponse(response) {
+    //console.log(response.data);
+    setPhotosData(response.data.photos);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     search();
+    setError(false);
   }
   function search() {
     let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
-    axios.get(url).then(handleResponse);
+    axios.get(url).then(handleDictionaryResponse).catch(setError(true));
+
+    let pexelsApiKey =
+      "563492ad6f9170000100000123b76e0be54b4e3883f9e14afbdc168c";
+    let pexelsUrl = `https://api.pexels.com/v1/search?query=${word}`;
+    if (!!error) {
+      axios
+        .get(pexelsUrl, {
+          headers: { Authorization: `Bearer ${pexelsApiKey}` },
+        })
+        .then(handlePexelsResponse);
+    }
   }
 
   function load() {
@@ -48,7 +68,9 @@ function Dictionary(props) {
             Search
           </button>
         </form>
-        <Results data={data} />
+        <Results data={dictionaryData} />
+
+        <Photos data={photosData} />
       </div>
     );
   } else {
