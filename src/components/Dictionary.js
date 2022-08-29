@@ -52,6 +52,8 @@ function Dictionary(props) {
     search();
   }
 
+  console.log(error);
+
   if (loaded) {
     return (
       <div className="Dictionary">
@@ -68,6 +70,10 @@ function Dictionary(props) {
             Search
           </button>
         </form>
+        <div className="err-msg">
+          Seems like we don't have any definition for "{word}", please try
+          another one.
+        </div>
         <Results data={dictionaryData} />
 
         <Photos data={photosData} />
