@@ -10,19 +10,18 @@ function Dictionary(props) {
   const [photosData, setPhotosData] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const [unknownWord, setUnknownWord] = useState(null);
 
   function handleChange(event) {
     setWord(event.target.value);
   }
 
   function handleDictionaryResponse(response) {
-    //console.log(response.data);
     // Some words have multiple meanings (like "sun") so we'll show the only first one, which is the most common.
     setDictionaryData(response.data[0]);
   }
 
   function handlePexelsResponse(response) {
-    //console.log(response.data);
     setPhotosData(response.data.photos);
   }
 
@@ -31,28 +30,33 @@ function Dictionary(props) {
     search();
     setError(false);
   }
-  function search() {
-    let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
-    axios.get(url).then(handleDictionaryResponse).catch(setError(true));
 
+  function search() {
+    let dictionaryUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
     let pexelsApiKey =
       "563492ad6f9170000100000123b76e0be54b4e3883f9e14afbdc168c";
     let pexelsUrl = `https://api.pexels.com/v1/search?query=${word}`;
-    if (!!error) {
-      axios
-        .get(pexelsUrl, {
-          headers: { Authorization: `Bearer ${pexelsApiKey}` },
-        })
-        .then(handlePexelsResponse);
-    }
+    axios
+      .get(dictionaryUrl)
+      .then((response) => {
+        handleDictionaryResponse(response);
+        axios
+          .get(pexelsUrl, {
+            headers: { Authorization: `Bearer ${pexelsApiKey}` },
+          })
+          .then(handlePexelsResponse);
+      })
+      .catch((err) => {
+        setUnknownWord(word);
+        setError(true);
+        console.log(err);
+      });
   }
 
   function load() {
     setLoaded(true);
     search();
   }
-
-  console.log(error);
 
   if (loaded) {
     return (
@@ -70,9 +74,9 @@ function Dictionary(props) {
             Search
           </button>
         </form>
-        <div className="err-msg">
-          Seems like we don't have any definition for "{word}", please try
-          another one.
+        <div className={`err-msg ${error ? "" : "display-none"}`}>
+          Seems like we don't have any definition for "{unknownWord}", please
+          try another one.
         </div>
         <Results data={dictionaryData} />
 

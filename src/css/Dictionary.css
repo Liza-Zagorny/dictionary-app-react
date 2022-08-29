@@ -22,5 +22,9 @@ button {
    color: red;
    font-size: 12px;
    font-weight: 500;
-   display: none
+  
+}
+
+.display-none {
+display: none
 }
