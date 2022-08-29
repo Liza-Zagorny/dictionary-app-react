@@ -76,7 +76,7 @@ function Dictionary(props) {
         </form>
         <div className={`err-msg ${error ? "" : "display-none"}`}>
           Seems like we don't have any definition for "{unknownWord}", please
-          try another one.
+          try another word.
         </div>
         <Results data={dictionaryData} />
 
