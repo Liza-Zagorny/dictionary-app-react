@@ -1,7 +1,6 @@
 import React from "react";
 import "../css/Photos.css";
 function Photos(props) {
-  console.log(props);
   if (props.data) {
     return (
       <div className="Photos card">
